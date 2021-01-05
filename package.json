@@ -1,0 +1,26 @@
+{
+  "name": "poc-ab-tests-backend",
+  "version": "0.0.1",
+  "description": "AB tests API POC",
+  "main": "index.js",
+  "author": "Uesley Silva",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "start:dev": "nodemon --inspect src/index.js",
+    "test:functional": "jest --projects ./__tests__ --runInBand"
+  },
+  "dependencies": {
+    "config": "^3.3.3",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "knex": "^0.21.15",
+    "mysql": "^2.18.1",
+    "pino": "^6.9.0",
+    "supertest": "^6.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6",
+    "pino-pretty": "^4.3.0"
+  }
+}

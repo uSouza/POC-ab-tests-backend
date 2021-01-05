@@ -1,0 +1,14 @@
+{
+  "Database": {
+    "host": "localhost",
+    "user": "root",
+    "password": "1234",
+    "database": "ab-tests-backend-test"
+  },
+  "Server": {
+    "port": 3001
+  },
+  "Logger": {
+    "enabled": false
+  }
+}
