@@ -1,7 +1,13 @@
 const router = require('express').Router()
+const testCaseModel = require('../domain/test-cases-model')
 
-router.get('/', (req, res) => {
-  res.send('it works!')
+router.post('/', async (req, res, next) => {
+  try {
+    const testCase = await testCaseModel.create(req.body)
+    res.send(testCase)
+  } catch (err) {
+    next(err)
+  }
 })
 
 module.exports = router

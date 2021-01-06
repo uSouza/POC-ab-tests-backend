@@ -1,37 +1,37 @@
+const { Sequelize } = require('sequelize')
 const configManager = require('../utils/config-manager')
-
-const knex = require('knex')
+const dbConfigs = configManager.get('Database')
 
 class Database {
-  constructor (dbFramework = knex) {
-    this.connection = dbFramework({
-      client: 'mysql',
-      connection: configManager.get('Database')
-    })
+  constructor () {
+    this.connection = new Sequelize(
+      dbConfigs.database,
+      dbConfigs.user,
+      dbConfigs.password,
+      {
+        dialect: "mariadb",
+        host: dbConfigs.host,
+        logging: configManager.get('Logger.enabled')
+      }
+    )
   }
 
   getConnection () {
     return this.connection
   }
 
-  check () {
-    return new Promise((resolve, reject) => {
-      this.connection.raw('SELECT 1+1 as test')
-        .then((res) => {
-          if (res && res.length > 0 && res[0].length > 0 && res[0][0].test === 2) {
-            resolve(true)
-          } else {
-            reject(new Error('database check failed'))
-          }
-        })
-        .catch((err) => {
-          reject(err)
-        })
-    })
+  async check () {
+    try {
+      await this.connection.authenticate()
+      return true
+    } catch (error) {
+      console.error('Unable to connect to the database:', error)
+      return false
+    }
   }
 
   close () {
-    return this.connection.destroy()
+    return this.connection.close()
   }
 }
 

@@ -8,19 +8,26 @@
   "scripts": {
     "start": "node src/index.js",
     "start:dev": "nodemon --inspect src/index.js",
-    "test:functional": "jest --projects ./__tests__ --runInBand"
+    "test:functional": "jest --projects ./__tests__ --runInBand",
+    "migrate:create": "./node_modules/.bin/sequelize-cli migration:generate --name",
+    "migrate:up": "./node_modules/.bin/sequelize-cli db:migrate",
+    "migrate:down": "./node_modules/.bin/sequelize-cli db:migrate:undo",
+    "migrate:down:all": "./node_modules/.bin/sequelize-cli db:migrate:undo:all"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "config": "^3.3.3",
     "express": "^4.17.1",
+    "http-status-codes": "^2.1.4",
     "jest": "^26.6.3",
-    "knex": "^0.21.15",
-    "mysql": "^2.18.1",
+    "mariadb": "^2.5.2",
     "pino": "^6.9.0",
+    "sequelize": "^6.3.5",
     "supertest": "^6.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.6",
-    "pino-pretty": "^4.3.0"
+    "pino-pretty": "^4.3.0",
+    "sequelize-cli": "^6.2.0"
   }
 }

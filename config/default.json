@@ -1,7 +1,7 @@
 {
   "Database": {
     "host": "localhost",
-    "user": "root",
+    "username": "root",
     "password": "1234",
     "database": "ab-tests-backend"
   },

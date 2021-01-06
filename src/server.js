@@ -1,8 +1,11 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const config = require('./lib/utils/config-manager')
 const logger = require('./lib/utils/log-manager')
 const database = require('./lib/clients/database')
 const testCasesRouter = require('./test-cases/infra/router')
+const clientErrorHandler = require('./lib/middlewares/client-error-handler')
+const logError = require('./lib/middlewares/log-error')
 
 module.exports = class Server {
   constructor (app = express()) {
@@ -22,7 +25,10 @@ module.exports = class Server {
   }
 
   setup () {
+    this.app.use(bodyParser.json())
     this.registerRoutes()
+    this.app.use(logError)
+    this.app.use(clientErrorHandler)
   }
 
   start () {
